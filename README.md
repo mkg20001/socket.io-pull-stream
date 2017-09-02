@@ -1,0 +1,67 @@
+# socket.io-pull-stream
+
+Pull Streams for socket.io
+
+# API
+
+First add the functions to your client: `sp(io)`
+
+-   `.createSink([id])`
+
+    Will create a sink with `id`.
+    If no id is provided a new id will be generated and can be found under `sink.id`
+
+    Returns: Sink Function
+
+-   `.createSource(id)`
+
+    Will create a source that reads from a sink with id `id` on the other side.
+
+    Returns: Source Function
+
+-   `.createProxy(id, to)`
+
+    Will proxy the stream `id` to socket `to`
+
+# Examples
+
+## File Stream
+
+Server:
+
+```js
+const sp = require("socket.io-pull-stream")
+const fs = require("fs")
+const toPull = require("stream-to-pull-stream")
+const pull = require("pull-stream")
+
+io.on("connection", client => {
+  sp(client)
+  const ws = toPull.source(fs.createReadStream("some_file.txt"))
+  const sink = client.createSink()
+  pull(
+    ws,
+    sink
+  )
+  client.emit("file", sink.id) //to send the stream just emit the id
+})
+```
+
+Client:
+
+```js
+const sp = require("socket.io-pull-stream")
+const pull = require("pull-stream")
+
+sp(io)
+
+io.on("file", id => {
+  pull(
+    io.createSource(id), //to recieve just create a source with the id
+    pull.collect((err, data) => {
+      if (err) throw err
+      console.log(Buffer.from(data).toString()) //our data
+    })
+  )
+})
+```
