@@ -104,21 +104,21 @@ function SIOSink(sio, id, opt) {
 
 module.exports = function SIOPullStream(sio, opt) {
   sio.sioplog = sio.id ? _log.bind(_log, "[" + sio.id + "]") : _log
-  sio.createSink = id => {
+  sio.createSink = (id, _) => {
     if (!id) id = uuid()
-    const sink = SIOSink(sio, id, opt)
+    const sink = SIOSink(sio, id, opt || _)
     sink.id = id
     return sink
   }
-  sio.createSource = id => {
-    const source = SIOSource(sio, id, opt)
+  sio.createSource = (id, _) => {
+    const source = SIOSource(sio, id, opt || _)
     source.id = id
     return source
   }
-  sio.createProxy = (id, tsio) => {
+  sio.createProxy = (id, tsio, _) => {
     pull(
-      sio.createSource(id),
-      tsio.createSink(id)
+      sio.createSource(id, _),
+      tsio.createSink(id, _)
     )
   }
 }

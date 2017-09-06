@@ -4,7 +4,13 @@ Pull Streams for socket.io
 
 # API
 
-First add the functions to your client: `sp(io)`
+-   `sp(io[, opt])`
+
+    Will add the functions below to `io`
+
+    -   `io`: Socket.io-client instance
+    
+    -   `opt`: Default options for every stream
 
 -   `.createSink([id, opt])`
 
