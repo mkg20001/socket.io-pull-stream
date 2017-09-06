@@ -6,16 +6,32 @@ Pull Streams for socket.io
 
 First add the functions to your client: `sp(io)`
 
--   `.createSink([id])`
+-   `.createSink([id, opt])`
 
     Will create a sink with `id`.
     If no id is provided a new id will be generated and can be found under `sink.id`
 
+    -   `opt`: Object. Config for stream
+
+        -   `codec`: Codec to use.
+
+            Either string (`hex, plain, buffer`) or object (`{encode: data => ..., decode: data => ...}`).
+
+            Default: `plain`
+
     Returns: Sink Function
 
--   `.createSource(id)`
+-   `.createSource(id[, opt])`
 
     Will create a source that reads from a sink with id `id` on the other side.
+
+    -   `opt`: Object. Config for stream
+
+        -   `codec`: Codec to use.
+
+            Either string (`hex, plain, buffer`) or object (`{encode: data => ..., decode: data => ...}`).
+
+            Default: `plain`
 
     Returns: Source Function
 
