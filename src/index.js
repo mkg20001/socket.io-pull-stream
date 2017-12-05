@@ -20,15 +20,15 @@ function doCodec (codec, data) {
 }
 
 const codecs = {
-  'hex': {
+  hex: {
     encode: v => v.toString('hex'),
     decode: v => Buffer.from(v, 'hex')
   },
-  'plain': {
+  plain: {
     encode: v => v,
     decode: v => v
   },
-  'buffer': { // always do Buffer.from because browsers
+  buffer: { // always do Buffer.from because browsers
     encode: v => Buffer.from(v),
     decode: v => Buffer.from(v)
   }
@@ -103,6 +103,7 @@ function SIOSink (sio, id, opt) {
 }
 
 module.exports = function SIOPullStream (sio, opt) {
+  if (sio.createSink) return
   sio.sioplog = sio.id ? _log.bind(_log, '[' + sio.id + ']') : _log
   sio.createSink = (id, _) => {
     if (!id) id = uuid()
