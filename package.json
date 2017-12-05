@@ -14,9 +14,9 @@
   "author": "Maciej Krüger <mkg20001@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "data-queue": "0.0.2",
-    "debug": "^3.0.1",
-    "pull-stream": "^3.6.0",
+    "data-queue": "0.0.3",
+    "debug": "^3.1.0",
+    "pull-stream": "^3.6.1",
     "uuid": "^3.1.0"
   },
   "devDependencies": {},
