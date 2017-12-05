@@ -15,13 +15,13 @@ const connectNClients = (count, url, cb) => {
     pull(client, {codec: 'buffer'})
     clients.push(client)
   }
-  parallel(clients.forEach(c => done => {
+  parallel(clients.map(c => done => {
     c.once('connect', done)
     c.once('connect_error', done)
     c.once('error', done)
   }), err => {
     if (err) return cb(err)
-    parallel(clients.forEach(c => done => {
+    parallel(clients.map(c => done => {
       c.emit('hello')
       c.once('world', id => {
         c._id = id

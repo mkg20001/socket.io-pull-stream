@@ -13,8 +13,9 @@ function boot(done) {
   io.on('connection', client => {
     pull(client, {codec: 'buffer'})
 
-    client.on('createProxy', (id, to) => {
+    client.on('createProxy', (id, to, f) => {
       client.createProxy(id, routingTable[to])
+      if (f) f()
     })
 
     client.on('hello', () => client.emit('world', client.id))

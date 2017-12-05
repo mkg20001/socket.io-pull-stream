@@ -17,22 +17,27 @@ describe('data', () => {
       const [c1, c2] = res
 
       const id = uuid()
-      const sink = c1.createSink(id)
-      const d = Buffer.from('hello')
-      pull(
-        pull.values([d]),
-        sink
-      )
-      c1.emit('createProxy', c2._id)
 
+      const sink = c1.createSink(id)
       const src = c2.createSource(id)
-      pull(
-        src,
-        pull.collect((err, res) => {
-          if (err) return cb(err)
-          expect(res[0]).to.equal(d)
-        })
-      )
+
+      const d = Buffer.from('hello')
+
+      c1.emit('createProxy', id, c2._id, () => {
+        pull(
+          pull.values([d, d]),
+          sink
+        )
+        
+        pull(
+          src,
+          pull.collect((err, res) => {
+            if (err) return cb(err)
+            expect(res[0]).to.equal(d)
+            cb()
+          })
+        )
+      })
     })
   })
 })
