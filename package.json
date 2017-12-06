@@ -43,5 +43,8 @@
   "bugs": {
     "url": "https://github.com/mkg20001/socket.io-pull-stream/issues"
   },
-  "homepage": "https://github.com/mkg20001/socket.io-pull-stream#readme"
+  "homepage": "https://github.com/mkg20001/socket.io-pull-stream#readme",
+  "contributors": [
+    "mkg20001 <mkg20001@gmail.com>"
+  ]
 }
