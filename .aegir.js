@@ -1,8 +1,9 @@
 'use strict'
 
 const SIO = require('socket.io')
-const pull = require('./src')
+// const pull = require('pull-stream')
 const http = require('http')
+const sp = require('./src')
 let io, serv
 
 const routingTable = {}
@@ -11,7 +12,9 @@ function boot (done) {
   serv = http.createServer(() => {})
   io = SIO(serv)
   io.on('connection', client => {
-    pull(client, {codec: 'buffer'})
+    sp(client, {codec: 'buffer'})
+
+    client.on('ack', ack => ack())
 
     client.on('createProxy', (id, to, f) => {
       to = routingTable[to]

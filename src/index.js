@@ -58,20 +58,26 @@ function SIOSource (sio, id, opt) {
     if (err === true) log('finish')
     else log('error')
     unlisten()
-    q.error(err)
+    q.append({end: err})
   })
   sio.on(sioname('queue', id), data => {
     log('queue data')
-    q.append(doCodec(codec, data))
+    q.append({data: doCodec(codec, data)})
   })
   sio.on('disconnect', () => {
     unlisten()
-    q.error(true)
+    q.append({end: true})
   })
   return function (end, cb) {
     log('reading')
     if (end) return cb(end)
-    q.get(cb)
+    q.get((err, data) => {
+      if (data.end) {
+        q.error(data.end)
+        return cb(data.end)
+      }
+      return cb(null, data.data)
+    })
   }
 }
 
@@ -79,13 +85,17 @@ function SIOSink (sio, id, opt) {
   const q = Queue()
   const log = sio.sioplog.bind(sio.sioplog, '  sink(' + id + ')')
   const codec = getCodec(opt.codec).encode
+  let ended
   log('create sink')
   sio.once(sioname('accept', id), () => {
     log('start transmission')
 
     function loop () {
-      q.get((err, data) => {
+      q.get((_, val) => {
+        let {data, err} = val || {}
+        if (_) err = _
         log('send', err && err === true ? 'finish' : err ? 'error' : data ? 'data' : '<invalid>')
+        if (err && !_) q.error(err)
         if (err) return sio.emit(sioname('error', id), err)
         if (data) sio.emit(sioname('queue', id), doCodec(codec, data))
         loop()
@@ -93,10 +103,19 @@ function SIOSink (sio, id, opt) {
     }
     loop()
   })
+
+  function doErr (end) {
+    q.append({err: end})
+    ended = end
+  }
+
+  sio.on('disconnect', () => doErr(true))
+
   return function (read) {
     read(null, function next (end, data) {
-      if (end) return q.error(end)
-      q.append(data)
+      if (end) return doErr(end)
+      if (ended) return read(ended, next)
+      q.append({data})
       read(null, next)
     })
   }
