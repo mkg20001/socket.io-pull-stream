@@ -3,7 +3,6 @@
 
 'use strict'
 
-const equal = require('assert').deepEqual
 const clients = require('./util').default()
 const uuid = require('uuid')
 const pull = require('pull-stream')

@@ -76,6 +76,7 @@ function SIOSource (sio, id, opt) {
         q.error(data.end)
         return cb(data.end)
       }
+      if (err) return cb(err)
       return cb(null, data.data)
     })
   }
