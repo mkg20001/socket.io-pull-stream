@@ -1,3 +1,13 @@
+<a name="0.1.3"></a>
+## [0.1.3](https://github.com/mkg20001/socket.io-pull-stream/compare/v0.1.2...v0.1.3) (2017-12-06)
+
+
+### Bug Fixes
+
+* package.json src path ([0d3cf1d](https://github.com/mkg20001/socket.io-pull-stream/commit/0d3cf1d))
+
+
+
 <a name="0.1.2"></a>
 ## [0.1.2](https://github.com/mkg20001/socket.io-pull-stream/compare/v0.1.1...v0.1.2) (2017-12-06)
 
