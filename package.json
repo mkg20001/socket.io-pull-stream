@@ -32,6 +32,8 @@
     "aegir": "^12.2.0",
     "chai": "^4.1.2",
     "dirty-chai": "^2.0.1",
+    "interface-connection": "^0.3.2",
+    "multistream-select": "^0.14.1",
     "socket.io": "^2.0.4"
   },
   "repository": {

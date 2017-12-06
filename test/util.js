@@ -22,6 +22,7 @@ const connectNClients = (count, url, cb) => {
   }), err => {
     if (err) return cb(err)
     parallel(clients.map(c => done => {
+      c.on('ack', f => f())
       c.emit('hello')
       c.once('world', id => {
         c._id = id

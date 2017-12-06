@@ -7,15 +7,16 @@ let io, serv
 
 const routingTable = {}
 
-function boot(done) {
+function boot (done) {
   serv = http.createServer(() => {})
   io = SIO(serv)
   io.on('connection', client => {
     pull(client, {codec: 'buffer'})
 
     client.on('createProxy', (id, to, f) => {
-      client.createProxy(id, routingTable[to])
-      if (f) f()
+      to = routingTable[to]
+      client.createProxy(id, to)
+      if (f) to.emit('ack', f)
     })
 
     client.on('hello', () => client.emit('world', client.id))
@@ -26,7 +27,7 @@ function boot(done) {
   serv.listen(5982, done)
 }
 
-function stop(done) {
+function stop (done) {
   serv.close(done)
 }
 
