@@ -72,11 +72,11 @@ function SIOSource (sio, id, opt) {
     log('reading')
     if (end) return cb(end)
     q.get((err, data) => {
+      if (err) return cb(err)
       if (data.end) {
         q.error(data.end)
         return cb(data.end)
       }
-      if (err) return cb(err)
       return cb(null, data.data)
     })
   }
