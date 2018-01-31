@@ -26,10 +26,10 @@
     "data-queue": "0.0.3",
     "debug": "^3.1.0",
     "pull-stream": "^3.6.1",
-    "uuid": "^3.1.0"
+    "uuid": "^3.2.1"
   },
   "devDependencies": {
-    "aegir": "^12.2.0",
+    "aegir": "^12.4.0",
     "chai": "^4.1.2",
     "dirty-chai": "^2.0.1",
     "interface-connection": "^0.3.2",
