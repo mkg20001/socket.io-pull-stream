@@ -1,3 +1,8 @@
+<a name="0.1.4"></a>
+## [0.1.4](https://github.com/mkg20001/socket.io-pull-stream/compare/v0.1.3...v0.1.4) (2018-01-31)
+
+
+
 <a name="0.1.3"></a>
 ## [0.1.3](https://github.com/mkg20001/socket.io-pull-stream/compare/v0.1.2...v0.1.3) (2017-12-06)
 
