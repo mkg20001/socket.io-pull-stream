@@ -45,6 +45,7 @@
   },
   "homepage": "https://github.com/mkg20001/socket.io-pull-stream#readme",
   "contributors": [
+    "Gorka <gorka@aquigorka.com>",
     "mkg20001 <mkg20001@gmail.com>"
   ]
 }
