@@ -64,7 +64,7 @@ function SIOSource (sio, id, opt) {
     log('queue data')
     q.append({data: doCodec(codec, data)})
   })
-  sio.on('disconnect', () => {
+  sio.once('disconnect', () => {
     unlisten()
     q.append({end: true})
   })
@@ -110,7 +110,7 @@ function SIOSink (sio, id, opt) {
     ended = end
   }
 
-  sio.on('disconnect', () => doErr(true))
+  sio.once('disconnect', () => doErr(true))
 
   return function (read) {
     read(null, function next (end, data) {
