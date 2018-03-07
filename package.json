@@ -1,6 +1,6 @@
 {
   "name": "socket.io-pull-stream",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Pull Streams for socket.io",
   "main": "src/index.js",
   "scripts": {
