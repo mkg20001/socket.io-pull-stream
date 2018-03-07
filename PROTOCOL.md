@@ -8,8 +8,8 @@ Note: ID is the Id of the connection
 
 ### Source
 
+Creates and returns a pull-stream source
 Emits `socket.io-pull-stream.accept.ID` on creation
-Create a pull-stream source
 
 - On `socket.io-pull-stream.error.ID`:
   - If arg1 is a boolean close the stream
@@ -22,6 +22,7 @@ Create a pull-stream source
 
 ### Sink
 
+Creates and returns a pull-stream sink
 Queues data until `socket.io-pull-stream.accept.ID` occurs
  - If incoming data is an error emits `socket.io-pull-stream.error.ID`
  - If incoming data is not an error emits `socket.io-pull-stream.queue.ID`
